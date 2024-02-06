@@ -2,6 +2,23 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Business {
+  _id: ID!
+  name: String!
+  description: String!
+  author: String!
+  point: Float!
+  imgUrls: [String!]!
+}
+
 type Query {
   hello: String!
+  Businesss(limit: Float! = 10, skip: Float! = 0): [Business!]!
+  Business(id: String!): Business!
+}
+
+type Mutation {
+  createBusiness(name: String!, description: String!, author: String!, point: Float!, imgUrls: [String!]): Business!
+  updateBusiness(_id: String!, name: String!, description: String!, author: String!, point: Float!, imgUrls: [String!]): Business!
+  deleteBusiness(BusinessId: String!): Business!
 }

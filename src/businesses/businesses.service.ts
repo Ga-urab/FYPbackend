@@ -9,12 +9,20 @@ export class BusinessesService {
     @InjectModel(Business.name) private BusinessModel: Model<BusinessDocument>,
   ) {}
 
-  async createBusiness(name: string, description: string, author: string, review: number, point: number, comment: string[]): Promise<Business> {
+  async createBusiness(
+    name: string,
+    description: string,
+    author: string,
+    point: number,
+    imgUrls?: string[],
+  ): Promise<Business> {
     const createdBusiness = new this.BusinessModel({
-      name, description, author, review, point, comment
+      name, description, author,point, imgUrls,
+
     });
     return createdBusiness.save();
   }
+  
 
   async getBusinesss(limit: number = 10, skip: number = 0): Promise<Business[]> {
     return this.BusinessModel
@@ -34,9 +42,8 @@ export class BusinessesService {
     name: string,
     description: string,
     author: string,
-    review: number,
     point: number,
-    comment: string[]
+    imgUrls?: string[],
   ): Promise<Business> {
     const updatedBusiness = await this.BusinessModel
       .findByIdAndUpdate(
@@ -45,9 +52,9 @@ export class BusinessesService {
           name,
           description,
           author,
-          review,
           point,
-          comment,
+          imgUrls,
+
         },
         { new: true },
       )

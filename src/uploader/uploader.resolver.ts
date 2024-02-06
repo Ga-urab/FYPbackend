@@ -4,6 +4,6 @@ import { Resolver, Query } from '@nestjs/graphql';
 export class UploaderResolver {
   @Query(() => String)
   hello(): string {
-    return 'Hello, world!';
+    return '...Hello, world!';
   }
 }

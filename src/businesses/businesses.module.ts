@@ -15,4 +15,4 @@ import { Business, BusinessSchema } from './Businesses.model';
   ],
   providers: [BusinessesResolver, BusinessesService],
 })
-export class BusinesssModule { }
+export class BusinessModule { }

@@ -8,6 +8,7 @@ import { ConfigModule } from '@nestjs/config';
 import { UsersModule } from './users/users.module';
 import { UploaderModule } from './uploader/uploader.module';
 import { MulterModule } from '@nestjs/platform-express';
+import { BusinessModule } from './businesses/businesses.module';
 
 @Module({
   imports: [
@@ -22,8 +23,9 @@ import { MulterModule } from '@nestjs/platform-express';
     MulterModule.register({
       dest: './uploads',
     }),
-    
-    UploaderModule, // Add this line
+    //UsersModule,
+    UploaderModule,
+   BusinessModule,
   ],
 })
 export class AppModule {}

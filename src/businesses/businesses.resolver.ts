@@ -24,11 +24,11 @@ export class BusinessesResolver {
     @Args('name', { type: () => String }) name: string,
     @Args('description', { type: () => String }) description: string,
     @Args('author', { type: () => String }) author: string,
-    @Args('review', { type: () => Number }) review: number,
     @Args('point', { type: () => Number }) point: number,
-    @Args('comment', { type: () => [String] }) comment: string[],
+    @Args('imgUrls', { type: () => [String], nullable: true })
+    imgUrls: string[],
   ) {
-    return this.BusinesssService.createBusiness(name, description, author, review, point, comment);
+    return this.BusinesssService.createBusiness(name, description, author, point, imgUrls);
   }
 
   @Mutation(() => Business)
@@ -37,11 +37,11 @@ export class BusinessesResolver {
     @Args('name', { type: () => String }) name: string,
     @Args('description', { type: () => String }) description: string,
     @Args('author', { type: () => String }) author: string,
-    @Args('review', { type: () => Number }) review: number,
     @Args('point', { type: () => Number }) point: number,
-    @Args('comment', { type: () => [String] }) comment: string[],
+    @Args('imgUrls', { type: () => [String], nullable: true })
+    imgUrls: string[],
   ) {
-    return this.BusinesssService.updateBusiness(_id, name, description, author, review, point, comment);
+    return this.BusinesssService.updateBusiness(_id, name, description, author, point, imgUrls);
   }
 
   @Mutation(() => Business)
