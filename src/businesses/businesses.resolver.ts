@@ -48,4 +48,20 @@ export class BusinessesResolver {
   async deleteBusiness(@Args('BusinessId', { type: () => String }) BusinessId: string) {
     return this.BusinesssService.deleteBusiness(BusinessId);
   }
+
+  @Mutation(() => Business)
+  async increasePoints(
+    @Args('_id', { type: () => String }) _id: string,
+    @Args('point', { type: () => Number }) point: number,
+  ) {
+    return this.BusinesssService.increasePoint(_id, point);
+  }
+
+  @Mutation(() => Business)
+  async decreasePoints(
+    @Args('_id', { type: () => String }) _id: string,
+    @Args('point', { type: () => Number }) point: number,
+  ) {
+    return this.BusinesssService.decreasePoint(_id, point);
+  }
 }

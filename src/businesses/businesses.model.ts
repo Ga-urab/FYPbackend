@@ -21,12 +21,16 @@ export class Business {
   author: string;
 
   @Field()
-  @Prop({ required: true })
+  @Prop({ required: false })
   point: number;
 
   @Field(() => [String]) // Field for storing image URLs
   @Prop({ type: [String], default: [], required: false })
   imgUrls: string[];
+
+  @Field()
+  @Prop({ type: Date })
+  lastIncreaseTimestamp: Date;
 }
 
 export type BusinessDocument = Business & Document;

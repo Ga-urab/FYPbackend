@@ -1,21 +1,31 @@
-// user.entity.ts
-import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
+
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import { ObjectType, Field, ID } from '@nestjs/graphql';
 
-@Schema({ timestamps: true })
-export class User extends Document {
+@Schema()
+@ObjectType()
+export class User {
+  @Field(() => ID)
+  _id: string;
+
+  @Field()
   @Prop({ required: true })
-  firstName: string;
+  username: string;
 
-  @Prop({ required: true })
-  lastName: string;
-
+  @Field()
   @Prop({ required: true, unique: true })
   email: string;
 
+  @Field()
   @Prop({ required: true })
   password: string;
+
+  @Field()
+  @Prop({ required: true })
+  userpoint: number;
 }
 
-export const UserSchema = SchemaFactory.createForClass(User);
 export type UserDocument = User & Document;
+
+export const UserSchema = SchemaFactory.createForClass(User);

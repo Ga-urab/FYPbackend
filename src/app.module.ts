@@ -2,10 +2,10 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { GraphQLModule } from '@nestjs/graphql';
-import { ApolloDriver, ApolloDriverConfig, ApolloFederationDriver, ApolloFederationDriverConfig } from '@nestjs/apollo';
+import { ApolloFederationDriver, ApolloFederationDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
 import { ConfigModule } from '@nestjs/config';
-import { UsersModule } from './users/users.module';
+import { UserModule } from './users/users.module';
 import { UploaderModule } from './uploader/uploader.module';
 import { MulterModule } from '@nestjs/platform-express';
 import { BusinessModule } from './businesses/businesses.module';
@@ -23,7 +23,7 @@ import { BusinessModule } from './businesses/businesses.module';
     MulterModule.register({
       dest: './uploads',
     }),
-    //UsersModule,
+    UserModule,
     UploaderModule,
    BusinessModule,
   ],

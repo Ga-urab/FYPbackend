@@ -2,6 +2,14 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type User {
+  _id: ID!
+  username: String!
+  email: String!
+  password: String!
+  userpoint: Float!
+}
+
 type Business {
   _id: ID!
   name: String!
@@ -9,16 +17,31 @@ type Business {
   author: String!
   point: Float!
   imgUrls: [String!]!
+  lastIncreaseTimestamp: DateTime!
 }
 
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type Query {
+  userById(_id: String!): User!
+  allUsers: [User!]!
   hello: String!
   Businesss(limit: Float! = 10, skip: Float! = 0): [Business!]!
   Business(id: String!): Business!
 }
 
 type Mutation {
+  registerUser(username: String!, email: String!, password: String!, userpoint: Float! = 10): User!
+  login(email: String!, password: String!): String!
+  increaseUserPoints(userId: String!, points: Float!): User!
+  decreaseUserPoints(userId: String!, points: Float!): User!
+  removeUser(id: String!): User!
   createBusiness(name: String!, description: String!, author: String!, point: Float!, imgUrls: [String!]): Business!
   updateBusiness(_id: String!, name: String!, description: String!, author: String!, point: Float!, imgUrls: [String!]): Business!
   deleteBusiness(BusinessId: String!): Business!
+  increasePoints(_id: String!, point: Float!): Business!
+  decreasePoints(_id: String!, point: Float!): Business!
 }

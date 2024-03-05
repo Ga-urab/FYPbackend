@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Document } from 'mongoose';
 import { Business, BusinessDocument } from './Businesses.model';
+import { Cron, CronExpression } from '@nestjs/schedule';
 
 @Injectable()
 export class BusinessesService {
@@ -70,5 +71,44 @@ export class BusinessesService {
     } else {
       throw new Error('Business not found');
     }
+  }
+
+  async increasePoint(businessId: string, points: number): Promise<Business> {
+    const business = await this.BusinessModel.findById(businessId);
+    if (!business) {
+      throw new Error('Business not found');
+    }
+    business.point += points;
+    await business.save();
+    return business;
+  }
+
+  async decreasePoint(businessId: string, points: number): Promise<Business> {
+    const business = await this.BusinessModel.findById(businessId);
+    if (!business) {
+      throw new Error('Business not found');
+    }
+    business.point -= points;
+    await business.save();
+    return business;
+  }
+
+  @Cron(CronExpression.EVERY_HOUR)
+  async decreaseBusinessPointsAutomatically() {
+    const businesses = await this.BusinessModel.find();
+
+    businesses.forEach(async (business) => {
+      const currentTime = new Date();
+      if (business.lastIncreaseTimestamp) {
+        const timeDifference = currentTime.getTime() - business.lastIncreaseTimestamp.getTime();
+        const daysDifference = timeDifference / (1000 * 3600 * 24);
+
+        if (daysDifference >= 3) {
+          await this.decreasePoint(business._id, business.point - 10);
+          business.lastIncreaseTimestamp = null;
+          await business.save();
+        }
+      }
+    });
   }
 }
